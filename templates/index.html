@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Image Similarity Checker</title>
+</head>
+<body>
+    <h1>Sube una imagen para verificar similitudes</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*">
+        <input type="submit" value="Subir">
+    </form>
+
+    {% if similar_images %}
+        <h2>Se encontraron imágenes similares:</h2>
+        <ul>
+        {% for image in similar_images %}
+            <li>
+                <img src="{{ url_for('static', filename='uploads/' ~ image) }}" alt="Imagen Similar" style="width:200px;"/>
+                <p>{{ image }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% elif request.method == 'POST' %}
+        <p>Imagen subida y no se encontraron imágenes similares.</p>
+    {% endif %}
+</body>
+</html>
